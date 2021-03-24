@@ -11,6 +11,8 @@ import os
 import re
 from PyQt5 import QtWidgets, uic
 
+import copyfiles
+
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()
@@ -19,6 +21,12 @@ class Ui(QtWidgets.QMainWindow):
         # main window parameters
         self.setFixedSize(496,620)
         self.setWindowTitle("orderedcopy")
+
+        # containers for variables
+        self.path_fromto = {
+            "LOAD_FROM_PATH": None,
+            "LOAD_TO_PATH": None
+        }
         
         self.menuBar()
         self.mainFrame()
@@ -36,8 +44,12 @@ class Ui(QtWidgets.QMainWindow):
     def mainFrame(self):
         # Settings for the main frame
         self.toolButtonPathToSource.clicked.connect(lambda: self.onCopyButtonClicked(self.lineEditPathToSource))
-        # Settings for the main frame
         self.toolButtonPathToOutput.clicked.connect(lambda: self.onCopyButtonClicked(self.lineEditPathToOutput))
+
+        self.lineEditPathToSource.returnPressed.connect(self.setPaths)
+        self.lineEditPathToOutput.returnPressed.connect(self.setPaths)
+
+        self.pushButtonShowList.clicked.connect(self.showFileList)
 
     def close_application(self):
         """
@@ -65,12 +77,31 @@ class Ui(QtWidgets.QMainWindow):
         """
         lineEdit.setText(str(path))
 
-    def setPathCopyTo(self, loadfrom_path):
+    def setPaths(self):
         """
-        Set the text in lineEditPathToSource and self.loadfrom_path
+        Set the variables loadfrom_path and loadto_path from the values in lineEdit
         """
-        self.lineEditPathToSource.setText(str(loadfrom_path))
-        self.loadfrom_path = str(loadfrom_path)
+        self.path_fromto["LOAD_FROM_PATH"] = str(self.lineEditPathToSource.text())
+        self.path_fromto["LOAD_TO_PATH"] = str(self.lineEditPathToOutput.text())
+        for key in self.path_fromto:
+            print("{} set to: {}".format(key, self.path_fromto[key]))
+
+    def showFileList(self):
+        """
+        Show the list of files in text browser
+        """
+        self.setPaths()
+        self.textBrowser.clear()
+        file_lst = sorted(copyfiles.get_listdir(self.path_fromto["LOAD_FROM_PATH"]), reverse=False)
+        self.textBrowser.append("<html><b>Files will be copied in the following order:<html><b>")
+        for name in file_lst:
+            self.textBrowser.append(name)
+
+
+
+
+
+    
 
 
 def run():
