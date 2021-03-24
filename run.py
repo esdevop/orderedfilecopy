@@ -19,9 +19,9 @@ class Ui(QtWidgets.QMainWindow):
         # main window parameters
         self.setFixedSize(496,620)
         self.setWindowTitle("orderedcopy")
-
-
+        
         self.menuBar()
+        self.mainFrame()
         self.show()
 
     def menuBar(self):
@@ -32,6 +32,12 @@ class Ui(QtWidgets.QMainWindow):
         extractActionExit.setShortcut("Ctrl+Q")
         extractActionExit.setStatusTip("Leave the app")
         extractActionExit.triggered.connect(self.close_application)
+
+    def mainFrame(self):
+        # Settings for the main frame
+        self.toolButtonPathToSource.clicked.connect(lambda: self.onCopyButtonClicked(self.lineEditPathToSource))
+        # Settings for the main frame
+        self.toolButtonPathToOutput.clicked.connect(lambda: self.onCopyButtonClicked(self.lineEditPathToOutput))
 
     def close_application(self):
         """
@@ -45,6 +51,27 @@ class Ui(QtWidgets.QMainWindow):
             sys.exit()
         else:
             pass
+
+    def onCopyButtonClicked(self, lineEdit):
+        """
+        Handles CopyTo/CopyFrom buttons and leneEdit
+        """
+        path = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        self.setLineEdit(lineEdit, path)
+    
+    def setLineEdit(self, lineEdit, path):
+        """
+        Set the text in lineEdit
+        """
+        lineEdit.setText(str(path))
+
+    def setPathCopyTo(self, loadfrom_path):
+        """
+        Set the text in lineEditPathToSource and self.loadfrom_path
+        """
+        self.lineEditPathToSource.setText(str(loadfrom_path))
+        self.loadfrom_path = str(loadfrom_path)
+
 
 def run():
     """

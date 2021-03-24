@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="lineEdit_PATH_TO_SOURCE">
+   <widget class="QLineEdit" name="lineEditPathToSource">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_PATH_TO_OUTPUT">
+   <widget class="QLineEdit" name="lineEditPathToOutput">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -34,7 +34,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_PATH_TO_SOURCE">
+   <widget class="QToolButton" name="toolButtonPathToSource">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -47,7 +47,7 @@
      <string>...</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_PATH_TO_OUTPUT">
+   <widget class="QToolButton" name="toolButtonPathToOutput">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -70,7 +70,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_COPY">
+   <widget class="QPushButton" name="pushButtonCopy">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -83,7 +83,7 @@
      <string>Copy</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_COPY_FROM">
+   <widget class="QLabel" name="labelCopyFrom">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -96,7 +96,7 @@
      <string>Copy from</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_COPY_TO">
+   <widget class="QLabel" name="labelCopyTo">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -109,7 +109,7 @@
      <string>Copy to</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_SHOW_LIST">
+   <widget class="QPushButton" name="pushButtonShowList">
     <property name="geometry">
      <rect>
       <x>320</x>
