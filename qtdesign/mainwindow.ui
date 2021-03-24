@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>493</width>
+    <width>483</width>
     <height>618</height>
    </rect>
   </property>
@@ -17,9 +17,9 @@
    <widget class="QLineEdit" name="lineEdit_PATH_TO_SOURCE">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>80</x>
       <y>20</y>
-      <width>421</width>
+      <width>351</width>
       <height>21</height>
      </rect>
     </property>
@@ -27,9 +27,9 @@
    <widget class="QLineEdit" name="lineEdit_PATH_TO_OUTPUT">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>80</x>
       <y>50</y>
-      <width>421</width>
+      <width>351</width>
       <height>21</height>
      </rect>
     </property>
@@ -70,7 +70,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_Copy">
+   <widget class="QPushButton" name="pushButton_COPY">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -83,13 +83,52 @@
      <string>Copy</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_COPY_FROM">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy from</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_COPY_TO">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy to</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_SHOW_LIST">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>540</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show list</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>493</width>
+     <width>483</width>
      <height>25</height>
     </rect>
    </property>
