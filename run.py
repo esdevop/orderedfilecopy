@@ -9,6 +9,8 @@ Author:
 import sys
 import os
 import re
+import traceback
+import errno
 from PyQt5 import QtWidgets, uic
 
 import copyfiles
@@ -50,6 +52,7 @@ class Ui(QtWidgets.QMainWindow):
         self.lineEditPathToOutput.returnPressed.connect(self.setPaths)
 
         self.pushButtonShowList.clicked.connect(self.showFileList)
+        self.pushButtonCopy.clicked.connect(self.copyFilesInOrder)
 
     def close_application(self):
         """
@@ -83,8 +86,19 @@ class Ui(QtWidgets.QMainWindow):
         """
         self.path_fromto["LOAD_FROM_PATH"] = str(self.lineEditPathToSource.text())
         self.path_fromto["LOAD_TO_PATH"] = str(self.lineEditPathToOutput.text())
-        for key in self.path_fromto:
-            print("{} set to: {}".format(key, self.path_fromto[key]))
+
+    def checkPaths(self, path_to_dir, name):
+        """
+        Checks the validity of the 'Load to' and 'Load from' pathes
+        """
+        message = "Ok"
+        if not os.path.isdir(path_to_dir):
+            try:
+                raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), path_to_dir)
+            except FileNotFoundError:
+                traceback.print_exc()
+                message = "Error in '{}': Directory '{}' is not found".format(name, path_to_dir)
+        return message
 
     def showFileList(self):
         """
@@ -92,17 +106,31 @@ class Ui(QtWidgets.QMainWindow):
         """
         self.setPaths()
         self.textBrowser.clear()
-        file_lst = sorted(copyfiles.get_listdir(self.path_fromto["LOAD_FROM_PATH"]), reverse=False)
-        self.textBrowser.append("<html><b>Files will be copied in the following order:<html><b>")
-        for name in file_lst:
-            self.textBrowser.append(name)
+        isfine_message = self.checkPaths(self.path_fromto["LOAD_FROM_PATH"], "Copy from")
+        if isfine_message == "Ok":
+            file_lst = sorted(copyfiles.get_listdir(self.path_fromto["LOAD_FROM_PATH"]), reverse=False)
+            self.textBrowser.append("<html><b>Files will be copied in the following order:<html><b>")
+            for name in file_lst:
+                self.textBrowser.append(name)
+        else:
+            self.textBrowser.append('<html><b><p style="color:red;">{}</p><html><b>'.format(isfine_message))
 
-
-
-
-
-    
-
+    def copyFilesInOrder(self):
+        """
+        Copy files from 'Load from' to 'Load to'
+        """
+        self.showFileList()
+        isfine_loadfrom = self.checkPaths(self.path_fromto["LOAD_FROM_PATH"], "Copy from")
+        isfine_loadto = self.checkPaths(self.path_fromto["LOAD_TO_PATH"], "Copy to")
+        if isfine_loadfrom == "Ok":
+            if isfine_loadto == "Ok":
+                copyfiles.copyto(self.path_fromto["LOAD_FROM_PATH"], self.path_fromto["LOAD_TO_PATH"])
+                self.textBrowser.append("<html><b>Done!<html><b>")
+            else:
+                self.textBrowser.append('<html><b><p style="color:red;">{}</p><html><b>'.format(isfine_loadto))
+        else:
+            self.textBrowser.clear()
+            self.textBrowser.append('<html><b><p style="color:red;">{}</p><html><b>'.format(isfine_loadfrom))
 
 def run():
     """

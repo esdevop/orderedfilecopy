@@ -1,8 +1,8 @@
 import os
 import shutil
 
-SOURCE_DIR_NAME = "/home/irigo/Books/Audiobooks/Сборник_Статей_-_Разгадка_величайшей_тайны_человеческого_мозга_[Игорь_Гмыза]"
-COPYTO_DIR_NAME = "/run/media/irigo/FIREFLY/Audio_books"
+SOURCE_DIR_NAME = "Path/to/copy/from"
+COPYTO_DIR_NAME = "Path/to/copy/to"
 
 def get_listdir(mypath):
     f = []
